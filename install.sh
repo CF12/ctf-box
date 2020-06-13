@@ -17,8 +17,8 @@ sudo pacman --needed --noconfirm -S \
   fish \
   zip p7zip \
   terminator \
-  gdb radare2 ropper python-keystone python-unicorn \
-  binwalk foremost \
+  gdb radare2 ropper python-keystone python-unicorn radare2 \
+  binwalk foremost imagemagick perl-image-exiftool ffmpeg \
   metasploit \
   fcrackzip pdfcrack john \
   wireshark-cli nmap sqlmap \
@@ -40,7 +40,12 @@ yay --needed --noconfirm -S \
   android-apktool \
   zsteg \
   ttf-symbola \
-  nerd-fonts-fira-code
+  nerd-fonts-fira-code \
+  hash-identifier \
+  pngcheck steghide \
+  python-angr-git
+
+pip install --user pwntools pillow
 
 # Install gef
 wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh
