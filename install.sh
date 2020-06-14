@@ -1,5 +1,3 @@
-sudo hostname "cf12-arch"
-
 # Synchronize repos
 sudo pacman -Sy
 
@@ -42,8 +40,8 @@ yay --needed --noconfirm -S \
   ttf-symbola \
   nerd-fonts-fira-code \
   hash-identifier \
-  pngcheck steghide \
-  python-angr-git
+  pngcheck steghide
+  # python-angr-git
 
 pip install --user pwntools pillow
 
@@ -54,6 +52,6 @@ wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh
 curl -L https://get.oh-my.fish | fish
 sudo chsh -s $(which fish) vagrant
 
-omf i shellder
+# omf i shellder
 
 sudo pacman --noconfirm -Sc
