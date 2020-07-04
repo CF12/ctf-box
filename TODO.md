@@ -1,0 +1,7 @@
+- kernel starup scripts from sysctl
+- `set -U fish_user_paths $fish_user_paths /home/vagrant/.gem/ruby/2.7.0/bin`
+- patchelf
+- kernel settings (like "yama ptrace" & ASLR)
+- jwt_tool (https://github.com/ticarpi/jwt_tool)
+- wordlists
+- do the fucking goland and pip paths

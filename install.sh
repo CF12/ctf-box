@@ -13,13 +13,13 @@ sudo pacman --needed --noconfirm -S \
   python2 python2-pip \
   python python-pip \
   fish \
-  zip p7zip \
+  zip p7zip unzip \
   terminator \
-  gdb radare2 ropper python-keystone python-unicorn radare2 \
+  gdb radare2 ropper python-keystone python-unicorn radare2 ltrace \
   binwalk foremost imagemagick perl-image-exiftool ffmpeg \
   metasploit \
   fcrackzip pdfcrack john \
-  wireshark-cli nmap sqlmap \
+  wireshark-cli nmap sqlmap gnu-netcat \
   tmux \
   xclip \
   curl
@@ -40,7 +40,8 @@ yay --needed --noconfirm -S \
   ttf-symbola \
   nerd-fonts-fira-code \
   hash-identifier \
-  pngcheck steghide
+  pngcheck steghide \
+  ngrok
   # python-angr-git
 
 pip install --user pwntools pillow
