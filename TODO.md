@@ -5,3 +5,6 @@
 - jwt_tool (https://github.com/ticarpi/jwt_tool)
 - wordlists
 - do the fucking goland and pip paths
+- zsteg
+- steghide
+- multilib because fuck x32
