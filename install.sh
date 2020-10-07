@@ -15,14 +15,14 @@ sudo pacman --needed --noconfirm -S \
   fish \
   zip p7zip unzip \
   terminator \
-  gdb radare2 ropper python-keystone python-unicorn radare2 ltrace \
-  binwalk foremost imagemagick perl-image-exiftool ffmpeg \
+  gdb radare2 ropper python-keystone python-unicorn radare2 ltrace nasm patchelf \
+  binwalk foremost imagemagick perl-image-exiftool ffmpeg sagemath \
   metasploit \
   fcrackzip pdfcrack john \
   wireshark-cli nmap sqlmap gnu-netcat \
   tmux \
-  xclip \
-  curl
+  xorg \
+  curl hash-identifier
 
 # Install yay
 cd ~
@@ -42,7 +42,7 @@ yay --needed --noconfirm -S \
   hash-identifier \
   pngcheck steghide \
   ngrok
-  # python-angr-git
+  python-angr-git
 
 pip install --user pwntools pillow
 
