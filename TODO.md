@@ -1,10 +1,10 @@
 - kernel starup scripts from sysctl
 - `set -U fish_user_paths $fish_user_paths /home/vagrant/.gem/ruby/2.7.0/bin`
-- patchelf
 - kernel settings (like "yama ptrace" & ASLR)
 - jwt_tool (https://github.com/ticarpi/jwt_tool)
 - wordlists
 - do the fucking goland and pip paths
-- zsteg
-- steghide
 - multilib because fuck x32
+- fix import error from module 'six' (side effect of old 'six' module from angr install)
+  - replace module w/ updated version from github
+  - https://raw.githubusercontent.com/benjaminp/six/master/six.py
