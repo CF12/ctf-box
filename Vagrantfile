@@ -8,6 +8,10 @@ Vagrant.configure("2") do |config|
   config.ssh.forward_agent = true
   config.ssh.forward_x11 = true
 
+  config.ssh.username = 'vagrant'
+  config.ssh.password = 'vagrant'
+  config.ssh.insert_key = false
+
   config.vm.network "forwarded_port", guest: 4444, host: 4444
 
   config.vm.synced_folder "./", "/data",
@@ -19,6 +23,8 @@ Vagrant.configure("2") do |config|
     vb.gui = false
     vb.memory = "4096"
   end
+
+  config.vm.provision "file", source: "pacman.conf", destination: "/tmp/pacman.conf"
 
   config.vm.provision "shell", path: "install.sh", privileged: false
   config.vm.provision "file", source: "./src/.zshrc", destination: "~/.zshrc"

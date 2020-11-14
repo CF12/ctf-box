@@ -1,9 +1,17 @@
+# Install pacman.conf
+sudo cp /tmp/pacman.conf /etc/pacman.conf
+rm /tmp/pacman.conf
+
 # Synchronize repos
 sudo pacman -Sy
 
 # Setup reflector for faster mirros
 sudo pacman --needed --noconfirm -S reflector
 sudo reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
+
+sudo pacman --needed --noconfirm -S \
+  lib32-glibc \
+  archlinux-keyring
 
 # Install base packages
 sudo pacman --needed --noconfirm -S \
@@ -22,15 +30,13 @@ sudo pacman --needed --noconfirm -S \
   wireshark-cli nmap sqlmap gnu-netcat \
   tmux \
   xorg \
-  curl hash-identifier
+  curl
 
 # Install yay
+git clone https://aur.archlinux.org/yay.git /tmp/yay
+cd /tmp/yay && makepkg -sic --noconfirm --needed --noprogressbar
+rm -rf /tmp/yay
 cd ~
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -sic --noconfirm --needed --noprogressbar
-cd ~
-rm -rf ./yay
 
 yay --needed --noconfirm -S \
   burpsuite \
