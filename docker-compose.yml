@@ -3,6 +3,4 @@ services:
   ctf:
     build: .
     ports:
-    - 22:4444
-networks:
-  default:
+    - "4444:22"
