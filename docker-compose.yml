@@ -3,4 +3,6 @@ services:
   ctf:
     build: .
     ports:
-    - "4444:22"
+      - "4444:22"
+    volumes:
+      - /data/ctf:/data

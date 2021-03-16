@@ -1,20 +1,19 @@
-# Install pacman.conf
-sudo cp /tmp/pacman.conf /etc/pacman.conf
-rm /tmp/pacman.conf
-
 # Synchronize repos
-sudo pacman -Sy
+pacman -Sy
+
+pacman -S rsync
 
 # Setup reflector for faster mirros
-sudo pacman --needed --noconfirm -S reflector
-sudo reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
+pacman --needed --noconfirm -S reflector
+reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
 
-sudo pacman --needed --noconfirm -S \
-  lib32-glibc \
-  archlinux-keyring
+pacman --needed --noconfirm -S \
+  lib32-glibc
+
+pacman-key --populate archlinux
 
 # Install base packages
-sudo pacman --needed --noconfirm -S \
+pacman --needed --noconfirm -S \
   base-devel \
   git \
   go \
@@ -57,8 +56,8 @@ wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh
 
 # Install oh-my-fish
 curl -L https://get.oh-my.fish | fish
-sudo chsh -s $(which fish) vagrant
+chsh -s $(which fish) vagrant
 
 # omf i shellder
 
-sudo pacman --noconfirm -Sc
+pacman --noconfirm -Sc
