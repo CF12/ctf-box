@@ -22,16 +22,16 @@ RUN pacman --needed --noconfirm -S \
   go \
   python2 python2-pip \
   python python-pip \
-  fish \
+  fish vim \
   zip p7zip unzip \
-  gdb radare2 ropper python-keystone python-unicorn radare2 ltrace nasm patchelf \
+  gdb radare2 ropper python-keystone python-unicorn ltrace nasm patchelf \
   binwalk foremost imagemagick perl-image-exiftool ffmpeg \
   metasploit \
   fcrackzip pdfcrack john \
   wireshark-cli nmap sqlmap gnu-netcat \
   tmux \
   xorg-server \
-  curl
+  curl wget
 
 
 # User setup
@@ -43,6 +43,7 @@ RUN \
   passwd -d $user
 USER $user
 WORKDIR /home/$user
+COPY src/ ./
 
 # Install yay
 RUN \
@@ -59,9 +60,18 @@ RUN yay --needed --noconfirm -S \
   pngcheck steghide \
   ngrok
 
-RUN pip install angr
+RUN pip install --user \
+  angr \
+  pwntools \
+  pillow
 
-COPY src/ ./
+# Install gef
+RUN wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh
+
+# Install oh-my-fish
+RUN \
+  (curl -L https://get.oh-my.fish | fish) && \
+  sudo chsh -s /usr/bin/fish $user
 
 USER root
 

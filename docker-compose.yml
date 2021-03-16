@@ -2,7 +2,13 @@ version: "3.9"
 services:
   ctf:
     build: .
+      # TODO: Implement
+      # args:
+      #   USER: cf12
+      #   PASS: cf12
     ports:
       - "4444:22"
     volumes:
       - /data/ctf:/data
+    hostname: 'ctf-box'
+
