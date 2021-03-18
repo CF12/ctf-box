@@ -1,14 +1,22 @@
 version: "3.9"
 services:
   ctf:
+    hostname: 'ctf-box'
     build: .
-      # TODO: Implement
-      # args:
-      #   USER: cf12
-      #   PASS: cf12
+    args:
+      USER: cf12
+      PASS: cf12
+
     ports:
       - "4444:22"
+      - "5000:5000"
     volumes:
       - /data/ctf:/data
-    hostname: 'ctf-box'
+
+    security_opt:
+      - seccomp:unconfined
+    cap_add:
+      - SYS_PTRACE
+
+    network_mode: host
 

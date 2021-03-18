@@ -1,10 +1,7 @@
 FROM archlinux:base-devel
 
-ARG user=cf12
-ARG pass=cf12
-
 # Setup pacman & optimize mirrors
-COPY pacman.conf /etc/pacman.conf
+COPY src/pacman.conf /etc/pacman.conf
 
 RUN pacman -Sy
 RUN pacman --needed --noconfirm -S reflector rsync
@@ -43,7 +40,7 @@ RUN \
   passwd -d $user
 USER $user
 WORKDIR /home/$user
-COPY src/ ./
+COPY src/home ./
 
 # Install yay
 RUN \
