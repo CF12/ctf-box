@@ -61,7 +61,7 @@ RUN yay --needed --noconfirm -S \
   ngrok
 
 RUN pip install --user \
-  angr \
+  angr IPython \
   pwntools \
   pillow
 
