@@ -5,6 +5,7 @@ ARG PASS
 ARG SSH_PORT
 
 ENV SSH_PORT ${SSH_PORT}
+ENV PATH "${PATH}:~/.local/bin"
 
 COPY src/sshd_config /etc/ssh/sshd_config
 COPY src/pacman.conf /etc/pacman.conf
