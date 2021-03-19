@@ -1,22 +1,28 @@
 FROM archlinux:base-devel
 
-# Setup pacman & optimize mirrors
+ARG USER
+ARG PASS
+ARG SSH_PORT
+
+ENV SSH_PORT ${SSH_PORT}
+
+COPY src/sshd_config /etc/ssh/sshd_config
 COPY src/pacman.conf /etc/pacman.conf
 
-RUN pacman -Sy
-RUN pacman --needed --noconfirm -S reflector rsync
-RUN reflector -f 10 --score 20 --save /etc/pacman.d/mirrorlist
-
+# Setup pacman & optimize mirrors
 RUN \
+  pacman -Sy && \
   pacman-key --init && \
-  pacman-key --populate archlinux
+  pacman-key --populate archlinux && \
+  pacman --needed --noconfirm -S reflector rsync && \
+  reflector -f 10 --score 20 --save /etc/pacman.d/mirrorlist
 
 # Install base packages
 RUN pacman --needed --noconfirm -S \
   lib32-glibc \
   openssh \
   git \
-  go \
+  go php \
   python2 python2-pip \
   python python-pip \
   fish vim \
@@ -27,19 +33,18 @@ RUN pacman --needed --noconfirm -S \
   fcrackzip pdfcrack john \
   wireshark-cli nmap sqlmap gnu-netcat \
   tmux \
-  xorg-server \
+  xorg-xauth xorg-server \
   curl wget
-
 
 # User setup
 RUN sed --in-place 's/^#\s*\(%wheel\s\+ALL=(ALL)\s\+NOPASSWD:\s\+ALL\)/\1/' /etc/sudoers
 
 RUN \
-  useradd -m -s /usr/bin/fish $user && \
-  usermod -aG wheel $user && \
-  passwd -d $user
-USER $user
-WORKDIR /home/$user
+  useradd -m -s /usr/bin/fish $USER && \
+  usermod -aG wheel $USER && \
+  passwd -d $USER
+USER $USER
+WORKDIR /home/$USER
 COPY src/home ./
 
 # Install yay
@@ -68,11 +73,9 @@ RUN wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh
 # Install oh-my-fish
 RUN \
   (curl -L https://get.oh-my.fish | fish) && \
-  sudo chsh -s /usr/bin/fish $user
+  sudo chsh -s /usr/bin/fish $USER
 
 USER root
 
-RUN \
-  echo "PermitEmptyPasswords yes" >> /etc/ssh/sshd_config && \
-  ssh-keygen -A
-CMD ["/bin/sshd", "-D"]
+RUN ssh-keygen -A
+CMD /bin/sshd -D -p ${SSH_PORT}

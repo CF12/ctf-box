@@ -2,14 +2,16 @@ version: "3.9"
 services:
   ctf:
     hostname: 'ctf-box'
-    build: .
-    args:
-      USER: cf12
-      PASS: cf12
+    build:
+      context: .
+      args:
+        USER: cf12
+        PASS: cf12
+        SSH_PORT: 4444
 
-    ports:
-      - "4444:22"
-      - "5000:5000"
+    # ports:
+    #   - "4444:22"
+    #   - "5000:5000"
     volumes:
       - /data/ctf:/data
 
