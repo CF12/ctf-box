@@ -55,7 +55,6 @@ RUN \
   rm -rf /tmp/yay
 
 RUN yay --needed --noconfirm -S \
-  burpsuite \
   gobuster \
   android-apktool \
   zsteg \
@@ -73,7 +72,9 @@ RUN wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh
 
 # Install oh-my-fish
 RUN \
-  (curl -L https://get.oh-my.fish | fish) && \
+  curl -L https://get.oh-my.fish > install && \
+  fish install --noninteractive && \
+  rm install && \
   sudo chsh -s /usr/bin/fish $USER
 
 USER root
