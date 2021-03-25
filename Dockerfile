@@ -28,7 +28,7 @@ RUN pacman --needed --noconfirm -S \
   python python-pip \
   fish vim \
   zip p7zip unzip \
-  gdb radare2 ropper python-keystone python-unicorn ltrace nasm patchelf \
+  gdb radare2 ropper python-keystone python-unicorn ltrace nasm patchelf python-pwntools \
   binwalk foremost imagemagick perl-image-exiftool ffmpeg \
   metasploit \
   fcrackzip pdfcrack john \
@@ -64,7 +64,6 @@ RUN yay --needed --noconfirm -S \
 
 RUN pip install --user \
   angr IPython \
-  pwntools \
   pillow
 
 # Install gef
