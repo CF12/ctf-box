@@ -13,10 +13,14 @@ COPY src/pacman.conf /etc/pacman.conf
 # Setup pacman & optimize mirrors
 RUN \
   pacman -Sy && \
+  pacman -S --needed --noconfirm pacman-contrib && \
   pacman-key --init && \
   pacman-key --populate archlinux && \
-  pacman --needed --noconfirm -S reflector rsync && \
-  reflector -f 10 --score 20 --save /etc/pacman.d/mirrorlist
+  cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup && \
+  sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist.backup && \
+  rankmirrors -n 10 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
+  # pacman --needed --noconfirm -S reflector rsync && \
+  # reflector -f 10 --score 20 --save /etc/pacman.d/mirrorlist
 
 # Install base packages
 RUN pacman --needed --noconfirm -S \
