@@ -9,16 +9,19 @@ services:
         PASS: cf12
         SSH_PORT: 4444
 
-    # ports:
-    #   - "4444:22"
-    #   - "5000:5000"
+    ports:
+      - "4444:4444"
+      - "8080:8080"
+      - "8081:8081"
+      - "8082:8082"
+      - "8083:8083"
     volumes:
-      - /data/ctf:/data
+      - ~/ctf:/data
 
     security_opt:
       - seccomp:unconfined
     cap_add:
       - SYS_PTRACE
 
-    network_mode: host
+    # network_mode: host
 

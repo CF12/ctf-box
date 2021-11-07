@@ -1,4 +1,4 @@
-FROM archlinux:base-devel
+FROM --platform=linux/amd64 archlinux:base-devel
 
 ARG USER
 ARG PASS
@@ -19,8 +19,6 @@ RUN \
   cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup && \
   sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist.backup && \
   rankmirrors -n 10 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
-  # pacman --needed --noconfirm -S reflector rsync && \
-  # reflector -f 10 --score 20 --save /etc/pacman.d/mirrorlist
 
 # Install base packages
 RUN pacman --needed --noconfirm -S \
@@ -50,21 +48,21 @@ RUN \
   passwd -d $USER
 USER $USER
 WORKDIR /home/$USER
-COPY src/home ./
+COPY --chown=cf12:cf12 src/dotfiles ./
 
-# Install yay
-RUN \
-  git clone https://aur.archlinux.org/yay.git /tmp/yay && \
-  cd /tmp/yay && makepkg -sic --noconfirm --needed --noprogressbar && \
-  rm -rf /tmp/yay
+# # Install yay
+# RUN \
+#   git clone https://aur.archlinux.org/yay.git /tmp/yay && \
+#   cd /tmp/yay && makepkg -sic --noconfirm --needed --noprogressbar && \
+#   rm -rf /tmp/yay
 
-RUN yay --needed --noconfirm -S \
-  gobuster \
-  android-apktool \
-  zsteg \
-  hash-identifier \
-  pngcheck steghide \
-  ngrok
+# RUN yay --needed --noconfirm -S \
+#   gobuster \
+#   android-apktool \
+#   zsteg \
+#   hash-identifier \
+#   pngcheck steghide \
+#   ngrok
 
 RUN pip install --user \
   angr IPython \
@@ -72,13 +70,6 @@ RUN pip install --user \
 
 # Install gef
 RUN wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh
-
-# Install oh-my-fish
-RUN \
-  curl -L https://get.oh-my.fish > install && \
-  fish install --noninteractive && \
-  rm install && \
-  sudo chsh -s /usr/bin/fish $USER
 
 USER root
 

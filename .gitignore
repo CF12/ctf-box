@@ -2,3 +2,5 @@
 .vagrant
 
 package.box
+
+.DS_Store
